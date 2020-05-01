@@ -18,7 +18,7 @@ class CurrencyConverterViewController: UIViewController {
             case .failure(let error):
                 print (error)
             case .success(let currencies):
-                print("yeah")
+                print("Success View Load")
                 print(currencies)
             }
         }
