@@ -35,8 +35,8 @@ struct CurrencyRequest {
         }
         request.resume()
     }
-    /*
-    func getRates(completion: @escaping(Result<[CurrencyRates], CurrencyError>) -> Void) {
+    
+    func getRates(completion: @escaping(Result<Rates, CurrencyError>) -> Void) {
         let urlString = "http://api.currencylayer.com/live?access_key=\(access_key)"
         let url = URL(string: urlString)!
         let request = URLSession.shared.dataTask(with: url) {data, _, _ in
@@ -47,13 +47,11 @@ struct CurrencyRequest {
             do {
                 let decoder = JSONDecoder()
                 let ratesResponse = try decoder.decode(Rates.self, from: json)
-                let rates = ratesResponse.quotes
-                completion(.success(rates))
+                completion(.success(ratesResponse))
             } catch {
                 completion(.failure(.canNotProcessData))
             }
         }
         request.resume()
     }
-    */
 }

@@ -20,7 +20,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="AUi-Nd-aqQ" kind="showDetail" id="r69-JR-Nj8"/>
+                                    <segue destination="AUi-Nd-aqQ" kind="showDetail" identifier="ActualCurrencySet" id="r69-JR-Nj8"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R6y-fP-NRN">
@@ -28,7 +28,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
-                                    <segue destination="AUi-Nd-aqQ" kind="showDetail" id="b1c-yu-E0U"/>
+                                    <segue destination="AUi-Nd-aqQ" kind="showDetail" identifier="ConvertCurrencySet" id="b1c-yu-E0U"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RUi-3m-dWp">
@@ -54,10 +54,10 @@
             </objects>
             <point key="canvasLocation" x="139" y="130"/>
         </scene>
-        <!--View Controller-->
+        <!--Select Currency View Controller-->
         <scene sceneID="ARd-jA-hHl">
             <objects>
-                <viewController id="AUi-Nd-aqQ" sceneMemberID="viewController">
+                <viewController id="AUi-Nd-aqQ" customClass="SelectCurrencyViewController" customModule="currency_converter" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mh3-oK-g31">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -77,6 +77,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Kd3-Yc-0Kv"/>
                     </view>
+                    <connections>
+                        <outlet property="selectCurrency" destination="6KV-4o-z77" id="reb-vL-cam"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="md6-rV-Lmc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -84,6 +87,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="b1c-yu-E0U"/>
+        <segue reference="r69-JR-Nj8"/>
     </inferredMetricsTieBreakers>
 </document>
