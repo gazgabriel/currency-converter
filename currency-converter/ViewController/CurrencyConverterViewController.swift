@@ -14,19 +14,19 @@ class CurrencyConverterViewController: UIViewController {
 
     @IBOutlet weak var ActualCurrencyButton: UIButton!
     @IBOutlet weak var ConvertCurrencyButton: UIButton!
-    
     @IBOutlet weak var convertValueLabel: UILabel!
-    var actualCurrency:String?
-    var convertCurrency:String?
-    
     @IBOutlet weak var valueTextLabel: UITextField!
     @IBOutlet weak var convertCurrenciesButton: UIButton!
+    
+    var actualCurrency:String?
+    var convertCurrency:String?
+    var currenciesList: [String:String]?
+    var ratesList: [String:Double]?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let currencyRequest = CurrencyRequest()
-        var currenciesList: [String:String]?
-        var ratesList: [String:Double]?
         
         
         currencyRequest.getCurrencies{ [weak self] result in
@@ -34,7 +34,7 @@ class CurrencyConverterViewController: UIViewController {
             case .failure(let error):
                 print (error)
             case .success(let currencies):
-                currenciesList = currencies.currencies
+                self!.currenciesList = currencies.currencies
             }
         }
         
@@ -43,25 +43,39 @@ class CurrencyConverterViewController: UIViewController {
             case .failure(let error):
                 print (error)
             case .success(let rates):
-                ratesList = rates.quotes
+                self!.ratesList = rates.quotes
             }
         }
+    
         sleep(2)
         self.viewModel = CurrencyConverterViewModel(currencies: currenciesList!, rates: ratesList!)
-        
+    }
+    
+    @IBAction func convertCurrencies(sender: UIButton) {
+        if let actualCurrency = self.actualCurrency, let convertCurrency = self.convertCurrency, let textValue = valueTextLabel.text {
+            let actualValue = viewModel?.rates!["USD\(actualCurrency)"]!
+            let covertValue = viewModel?.rates!["USD\(convertCurrency)"]!
+            let result = ((covertValue! * (textValue as NSString).doubleValue) / actualValue!)
+            convertValueLabel.text = "\((String(format:"%.2f", (textValue as NSString).doubleValue))) \(actualCurrency) = \(String(format:"%.2f", result)) \(convertCurrency)"
+        } else {
+            let alertController = UIAlertController(title: "Moedas Não Indicadas", message:
+                "Para realizar a conversão indique ambas modeas", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Confirmar", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ActualCurrencySet") {
             let viewController = segue.destination as? SelectCurrencyViewController
-            viewController!.currencies = viewModel!.currencies
+            viewController!.currencies = self.currenciesList
             viewController!.segueOrigin = "ActualCurrencySet"
             viewController?.delegate = self
         }
         
         if (segue.identifier == "ConvertCurrencySet") {
             let viewController = segue.destination as? SelectCurrencyViewController
-            viewController!.currencies = viewModel!.currencies
+            viewController!.currencies = self.currenciesList
             viewController!.segueOrigin = "ConvertCurrencySet"
             viewController?.delegate = self
         }
@@ -71,29 +85,10 @@ class CurrencyConverterViewController: UIViewController {
 extension CurrencyConverterViewController: SelectCurrencyViewControllerDelegate {
     func updateActual(_ prefix: String) {
         actualCurrency = prefix
-        ActualCurrencyButton.titleLabel?.text = prefix
+        ActualCurrencyButton.setTitle(prefix, for: .normal)
     }
-    
     func updateConvert(_ prefix: String) {
         convertCurrency = prefix
-        ConvertCurrencyButton.titleLabel?.text = prefix
+        ConvertCurrencyButton.setTitle(prefix, for: .normal)
     }
-    
-    
-    @IBAction func likedThis(sender: UIButton) {
-        let actualValue = viewModel?.rates["USD\(actualCurrency!)"]!
-        let covertValue = viewModel?.rates["USD\(convertCurrency!)"]!
-        let value = (valueTextLabel.text! as NSString).doubleValue
-        
-        let result = ((covertValue! * value) / actualValue!)
-        print("\(value) \(actualCurrency!) = \(result) \(convertCurrency!)")
-        
-        
-        
-        
-
-      
-     }
-    
-    
 }

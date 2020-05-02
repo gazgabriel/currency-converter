@@ -18,13 +18,9 @@ class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var selectCurrency: UIPickerView!
     
     var currencies: [String:String]?
-    
     var segueOrigin: String?
-    
     var prefix: String?
-    
     weak var delegate: SelectCurrencyViewControllerDelegate?
-    
     var viewModel: SelectCurrencyViewModel?
     
     override func viewDidLoad() {
