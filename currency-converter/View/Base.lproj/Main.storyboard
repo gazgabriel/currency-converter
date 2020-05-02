@@ -102,11 +102,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <searchBar contentMode="redraw" fixedFrame="YES" text="" translatesAutoresizingMaskIntoConstraints="NO" id="VzB-8e-UrF">
+                                <rect key="frame" x="0.0" y="130" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="Kd3-Yc-0Kv"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="VzB-8e-UrF" id="bfr-RP-OZd"/>
                         <outlet property="selectCurrency" destination="6KV-4o-z77" id="reb-vL-cam"/>
                     </connections>
                 </viewController>
