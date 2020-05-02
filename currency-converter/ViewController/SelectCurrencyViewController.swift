@@ -31,6 +31,11 @@ class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPi
         searchBar.delegate = self
         
         self.viewModel = SelectCurrencyViewModel(currencies: currencies!)
+        
+        if let prefix = self.prefix {
+            self.selectCurrency.selectRow((self.viewModel?.indexByprefix(prefix: prefix))!, inComponent: 0, animated: true)
+        }
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -58,6 +63,16 @@ class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPi
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.viewModel?.currenciesByTerm(term: searchText)
         self.selectCurrency.reloadAllComponents()
+       
+        if searchText.count <= 3 {
+            
+            if segueOrigin == "ActualCurrencySet" {
+                self.delegate?.updateActual((viewModel?.prefixAtIndex(index: (viewModel?.indexByprefix(prefix: searchText))!))!)
+            }
+            if segueOrigin == "ConvertCurrencySet" {
+                self.delegate?.updateConvert((viewModel?.prefixAtIndex(index: (viewModel?.indexByprefix(prefix: searchText))!))!)
+            }
+        }
     }
     
 }
