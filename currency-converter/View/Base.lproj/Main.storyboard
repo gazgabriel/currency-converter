@@ -35,7 +35,7 @@
                                 <rect key="frame" x="79" y="240" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wBR-Bs-rdr">
                                 <rect key="frame" x="79" y="334" width="42" height="21"/>
@@ -44,11 +44,26 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3lp-ay-cMr">
+                                <rect key="frame" x="179" y="401" width="56" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Calcular"/>
+                                <connections>
+                                    <action selector="likedThisWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLN-uP-n2w"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="b1y-qe-4WZ"/>
+                    <connections>
+                        <outlet property="ActualCurrencyButton" destination="5L1-R5-zYf" id="U1h-0W-DS3"/>
+                        <outlet property="ConvertCurrencyButton" destination="R6y-fP-NRN" id="yTe-RU-o5s"/>
+                        <outlet property="convertCurrenciesButton" destination="3lp-ay-cMr" id="huz-3o-p6Q"/>
+                        <outlet property="convertValueLabel" destination="wBR-Bs-rdr" id="qaC-rd-s9Z"/>
+                        <outlet property="valueTextLabel" destination="RUi-3m-dWp" id="YUl-1z-d3q"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

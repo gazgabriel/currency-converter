@@ -8,13 +8,22 @@
 
 import UIKit
 
+protocol SelectCurrencyViewControllerDelegate: AnyObject {
+    func updateActual(_ prefix: String)
+    func updateConvert(_ prefix: String)
+}
+
 class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    
-    
+
     @IBOutlet weak var selectCurrency: UIPickerView!
     
     var currencies: [String:String]?
+    
+    var segueOrigin: String?
+    
+    var prefix: String?
+    
+    weak var delegate: SelectCurrencyViewControllerDelegate?
     
     var viewModel: SelectCurrencyViewModel?
     
@@ -22,6 +31,8 @@ class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPi
         super.viewDidLoad()
         selectCurrency.dataSource = self
         selectCurrency.delegate = self
+        
+        self.viewModel = SelectCurrencyViewModel(currencies: currencies!)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -29,19 +40,21 @@ class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        let array = currencies?.keys.map { "\($0) \(currencies![$0]!)" }
-        return array!.count
+        return (viewModel?.currenciesList.count)!
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let array = currencies?.keys.map { "\($0) \(currencies![$0]!)" }
-        return array![row]
+        return viewModel?.currenciesList[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if segueOrigin == "ActualCurrencySet" {
+            self.delegate?.updateActual(String((viewModel?.currenciesList[row].prefix(3))!))
+        }
         
+        if segueOrigin == "ConvertCurrencySet" {
+            self.delegate?.updateConvert(String((viewModel?.currenciesList[row].prefix(3))!))
+        }
     }
-    
-    
     
 }
