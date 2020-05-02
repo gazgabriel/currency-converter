@@ -31,6 +31,11 @@ class SelectCurrencyViewController: UIViewController, UIPickerViewDelegate, UIPi
         searchBar.delegate = self
         
         self.viewModel = SelectCurrencyViewModel(currencies: currencies!)
+        
+        if let prefix = self.prefix {
+            self.selectCurrency.selectRow((self.viewModel?.indexByprefix(prefix: prefix))!, inComponent: 0, animated: true)
+        }
+        
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

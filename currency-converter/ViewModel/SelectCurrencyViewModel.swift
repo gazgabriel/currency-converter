@@ -46,6 +46,23 @@ struct SelectCurrencyViewModel {
             return String(currenciesList[index].prefix(3))
         }
     }
+    func indexByprefix(prefix: String) -> Int {
+        if self.currenciesListFiltred!.count > 0 {
+            for currencie in self.currenciesListFiltred! {
+                if currencie.prefix(3) == prefix {
+                    return (self.currenciesListFiltred?.firstIndex(of: currencie))!
+                }
+            }
+        }
+        else {
+            for currencie in self.currenciesList {
+                if currencie.prefix(3) == prefix {
+                    return (self.currenciesList.firstIndex(of: currencie))!
+                }
+            }
+        }
+        return 0
+    }
     
     func count() -> Int {
         if self.currenciesListFiltred!.count > 0 {

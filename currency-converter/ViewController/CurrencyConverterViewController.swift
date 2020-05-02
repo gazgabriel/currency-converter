@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CurrencyConverterViewController: UIViewController {
+class CurrencyConverterViewController: UIViewController, UITextFieldDelegate {
     
     var viewModel: CurrencyConverterViewModel?
 
@@ -28,6 +28,8 @@ class CurrencyConverterViewController: UIViewController {
         super.viewDidLoad()
         let currencyRequest = CurrencyRequest()
         let group = DispatchGroup()
+        
+        self.valueTextLabel.delegate = self
         
         
         group.enter()
@@ -79,6 +81,7 @@ class CurrencyConverterViewController: UIViewController {
             viewController!.currencies = self.currenciesList
             viewController!.segueOrigin = "ActualCurrencySet"
             viewController?.delegate = self
+            viewController?.prefix = self.actualCurrency
         }
         
         if (segue.identifier == "ConvertCurrencySet") {
@@ -86,7 +89,16 @@ class CurrencyConverterViewController: UIViewController {
             viewController!.currencies = self.currenciesList
             viewController!.segueOrigin = "ConvertCurrencySet"
             viewController?.delegate = self
+            viewController?.prefix = self.convertCurrency
         }
+    }
+    
+     func textField(_ textField: UITextField, shouldChangeCharactersIn
+        range: NSRange, replacementString string: String) -> Bool {
+        if valueTextLabel.text?.count == 0 && string == "0" {
+            return false
+        }
+        return string == string.filter("0123456789.".contains)
     }
 }
 
