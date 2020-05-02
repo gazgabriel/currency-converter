@@ -102,10 +102,10 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" fixedFrame="YES" text="" translatesAutoresizingMaskIntoConstraints="NO" id="VzB-8e-UrF">
+                            <searchBar contentMode="redraw" fixedFrame="YES" text="" placeholder="Pesquise por: &quot;BRL&quot;, &quot;USD&quot;..." translatesAutoresizingMaskIntoConstraints="NO" id="VzB-8e-UrF">
                                 <rect key="frame" x="0.0" y="130" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
