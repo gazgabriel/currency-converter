@@ -17,4 +17,10 @@ struct CurrencyConverterViewModel {
         self.currencies = currencies
         self.rates = rates
     }
+    
+    func convertCurrencies(actualValue:Double, covertValue:Double, qtdValue:Double) -> Double {
+        return ((covertValue * qtdValue) / actualValue)
+    }
+    
+
 }

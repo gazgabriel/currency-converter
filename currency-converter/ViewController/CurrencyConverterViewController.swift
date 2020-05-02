@@ -27,28 +27,36 @@ class CurrencyConverterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let currencyRequest = CurrencyRequest()
+        let group = DispatchGroup()
         
         
+        group.enter()
         currencyRequest.getCurrencies{ [weak self] result in
+            
             switch result {
             case .failure(let error):
                 print (error)
             case .success(let currencies):
                 self!.currenciesList = currencies.currencies
             }
+            group.leave()
         }
         
+        group.enter()
         currencyRequest.getRates{ [weak self] result in
             switch result {
             case .failure(let error):
                 print (error)
             case .success(let rates):
                 self!.ratesList = rates.quotes
+                
             }
+            group.leave()
         }
-    
-        sleep(2)
-        self.viewModel = CurrencyConverterViewModel(currencies: currenciesList!, rates: ratesList!)
+        
+        group.notify(queue: .main) {
+            self.viewModel = CurrencyConverterViewModel(currencies: self.currenciesList!, rates: self.ratesList!)
+        }
     }
     
     @IBAction func convertCurrencies(sender: UIButton) {
